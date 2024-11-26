@@ -21,8 +21,8 @@ def token_generator(user: m.Utilisateur, config_path: str = CONFIG_PATH) -> byte
     payload = {
         "iss": config['iss'],
         "aud": config['aud'],
-        "iat": datetime.now(datetime.now(timezone.utc)),
-        "exp": datetime.now(datetime.now(timezone.utc)) + timedelta(minutes=config['ACCESS_TOKEN_EXPIRE_MINUTES']),
+        "iat": datetime.now(),
+        "exp": datetime.now() + timedelta(minutes=config['ACCESS_TOKEN_EXPIRE_MINUTES']),
         "sub": user.EmailUtilisateur,
         "nom": user.NomUtilisateur,
         "role": user.Statut

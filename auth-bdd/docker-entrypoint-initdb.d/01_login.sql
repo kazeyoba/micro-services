@@ -1,5 +1,8 @@
 CREATE DATABASE web_lou_login;
+CREATE USER admin WITH PASSWORD 'lannion1234';
 GRANT ALL PRIVILEGES ON DATABASE web_lou_login TO admin;
+ALTER ROLE admin WITH SUPERUSER;
+
 \c web_lou_login;
 
 CREATE TABLE "Utilisateur" (
