@@ -1,0 +1,10 @@
+{
+    "SECRET_KEY": "c51b9040b399556954c6b54ffebe5f60c2a7d6ff762fab96016e40188a3ddbe6",
+    "ALGORITHMS": "HS256",
+    "ACCESS_TOKEN_EXPIRE_MINUTES": 59,
+    "iss": "http://api-auth:5000",
+    "aud": [
+        "http://front-server:5000",
+        "http://api-bibliotheque:5000"
+    ]
+}

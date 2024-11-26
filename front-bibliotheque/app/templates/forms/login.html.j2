@@ -1,0 +1,19 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Formulaire - authentification{% endblock %}
+
+{% block content %}
+<form id="form_cnx" method="post" action="{{ url_for('login') }}">
+  <div class="form-group">
+    <label for="mail">Email address</label>
+    <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" placeholder="Enter email" required>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="pass">Password</label>
+    <input type="password" class="form-control" id="pass" placeholder="Password" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary" name="connect", value="Connexion">Submit</button>
+</form>
+{% endblock %}

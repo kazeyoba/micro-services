@@ -1,0 +1,7 @@
+{
+    "host": "bdd-auth",
+    "port": 5432,
+    "user": "admin",
+    "password": "lannion1234",
+    "database": "web_lou_login"
+}

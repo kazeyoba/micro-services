@@ -1,0 +1,14 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Bibliothèque - Ajout Auteur{% endblock %}
+
+{% block content %}
+    <form method="post", action="{{ url_for('addauteur') }}">
+        <div class="form-group">
+            <label for="nom_auteur">Nom Auteur :</label>
+            <input type="text" class="form-control" name="nom_auteur" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+{% endblock %}

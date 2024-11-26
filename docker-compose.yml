@@ -1,0 +1,50 @@
+name: microservice
+
+services:
+  api-bibliotheque:
+    build:
+      context: ./api-bibliotheque
+      dockerfile: Dockerfile
+    image: api-bibliotheque:test
+    ports:
+      - 5001:5000
+
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./api-server/app
+          target: /app
+
+  front-bibliotheque:
+    build:
+      context: ./front-bibliotheque
+      dockerfile: Dockerfile
+    image: front-bibliotheque:test
+    ports:
+      - 5000:5000
+
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./front-server/app
+          target: /app
+
+  api-auth:
+    build:
+      context: ./api-auth
+      dockerfile: Dockerfile
+    image: api-auth:test
+    ports:
+      - 5002:5000
+
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./api-auth/app
+          target: /app
+
+  bdd-auth:
+    build:
+      context: ./auth-bdd
+      dockerfile: Dockerfile
+    image: auth-bdd-bibliotheque:test

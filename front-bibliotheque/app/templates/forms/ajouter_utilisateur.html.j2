@@ -1,0 +1,14 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Bibliothèque - Ajout Utilisateur{% endblock %}
+
+{% block content %}
+    <form method="post", action="{{ url_for('adduser') }}">
+        <div class="form-group">
+            <label for="nom_utilisateur">Nom d'utilisateur :</label>
+            <input type="text" class="form-control" name="nom_utilisateur" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+{% endblock %}
