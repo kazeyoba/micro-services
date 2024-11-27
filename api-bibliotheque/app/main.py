@@ -11,45 +11,120 @@ async def get_api():
         'msg': 'Welcome - API Bibliotheque'
     }
 
-@app.get("/utilisateurs")
+@app.get("/utilisateurs", response_model=list[s.Utilisateurs])
 async def get_utilisateurs(payload=Depends(tc.verifierTokenAcess)) -> list[s.Utilisateurs]:
-    utilisateurs: list = c.get_utilisateurs()
+    try:
+        utilisateurs: list[s.Utilisateurs] = c.get_utilisateurs()
+        
+        if not utilisateurs:
+            raise HTTPException(status_code=404, detail="Aucun utilisateurs trouvé.")
+        
+        return utilisateurs
     
-    return utilisateurs
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Erreur interne du serveur : {str(e)}"
+        )
 
 @app.get("/livres")
 async def get_livres(payload=Depends(tc.verifierTokenAcess)) -> list[s.Livres]:
-    livres: list = c.get_livres()
-    
-    return livres
+    try:
+        livres: list = c.get_livres()
+        
+        if not livres:
+            raise HTTPException(status_code=404, detail="Aucun auteurs trouvé.")
+        
+        return livres
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Erreur interne du serveur : {str(e)}"
+        )
 
 @app.get("/auteurs")
 async def get_auteurs(payload=Depends(tc.verifierTokenAcess)) -> list[s.Auteurs]:
-    auteurs: list = c.get_auteurs()
-    
-    return auteurs
+    try:
+        auteurs: list = c.get_auteurs()
+        
+        if not auteurs:
+            raise HTTPException(status_code=404, detail="Aucun auteurs trouvé.")
+        
+        return auteurs
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Erreur interne du serveur : {str(e)}"
+        )
 
 @app.get("/utilisateur/{utilisateur}")
 async def get_utilisateur(utilisateur: str, payload=Depends(tc.verifierTokenAcess)) -> s.Utilisateurs:
-    utilisateur: dict = c.get_utilisateur(utilisateur)
-    
-    return utilisateur
+    try:
+        utilisateurs: dict = c.get_utilisateur(utilisateur)
+        
+        if not utilisateurs:
+            raise HTTPException(status_code=404, detail="Aucun utilisateurs trouvé.")
+        
+        return utilisateurs
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Erreur interne du serveur : {str(e)}"
+        )
 
 @app.route('/utilisateur/emprunts/{utilisateur}')
 async def get_emprunts(utilisateur: str, payload=Depends(tc.verifierTokenAcess)) -> list[s.Livres]:
-    emprunts: list = c.get_emprunts(utilisateur)
-    
-    return emprunts
+    try:
+        emprunts: list = c.get_emprunts(utilisateur)
+        
+        if not emprunts:
+            raise HTTPException(status_code=404, detail="Aucun emprunts trouvé.")
+        
+        return emprunts
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Erreur interne du serveur : {str(e)}"
+        )
 
 @app.get("/livres/siecle/{numero}")
 async def get_livres_siecle(numero:int, payload=Depends(tc.verifierTokenAcess)) -> list[s.Livres]:
-    livres: list = c.get_livres_siecle(numero)
-    
-    return livres
+    try:
+        livres: list = c.get_livres_siecle(numero)
+        
+        if not livres:
+            raise HTTPException(status_code=404, detail="Aucun livres trouvé.")
+        
+        return livres
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Erreur interne du serveur : {str(e)}"
+        )
 
 @app.post("/livres/ajouter")
 async def ajouter_livre(livre: s.CreateLivre, payload=Depends(tc.verifierTokenAcess)) -> dict:
-    return c.ajouter_livre(livre)
+    try:
+        nouveau_livre = c.ajouter_livre(livre)
+
+        if not nouveau_livre:
+            raise HTTPException(
+                status_code=500,
+                detail="Erreur lors de l'ajout du livre."
+            )
+
+        return nouveau_livre
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erreur interne du serveur : {str(e)}"
+        )
 
 @app.post("/utilisateur/ajouter")
 async def ajouter_utilisateur(utilisateur: s.CreateUtilisateur, payload=Depends(tc.verifierTokenAcess)) -> dict:
