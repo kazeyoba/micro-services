@@ -4,7 +4,7 @@
     "ACCESS_TOKEN_EXPIRE_MINUTES": 59,
     "iss": "http://api-auth:5000",
     "aud": [
-        "http://front-server:5000",
+        "http://front-bibliotheque:5000",
         "http://api-bibliotheque:5000"
     ]
 }

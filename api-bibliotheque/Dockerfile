@@ -4,7 +4,7 @@ ENV TZ=Europe/Paris
 
 RUN apk update && apk add --no-cache \
         tzdata \
-    && cp /usr/share/zoneinfo/$TZ /etc/localtime \
+    && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
     && apk add --no-cache bash \
     && adduser -D -u 1000 appuser \

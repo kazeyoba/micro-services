@@ -26,19 +26,19 @@ def verifierTokenAcess(credits: HTTPAuthorizationCredentials = Depends(security)
 
     """
     token = credits.credentials
+    audiences: list = ["http://front-bibliotheque:5000", "http://api-bibliotheque:5000"]
     
     try:
-        payload = jwt.decode(token, SECRET, ALGORITHMS, options={"verify_aud": False,"verify_iat": True})
+        payload = jwt.decode(token, SECRET, ALGORITHMS, audience=audiences)
         if payload is None:
             raise HTTPException(status_code=401, detail="Could not validate credentials")
-        
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail='Signature Error')
-    except jwt.InvalidAlgorithmError:
-        raise HTTPException(status_code=401, detail='Not HS256')
-    except jwt.InvalidTokenError:
-        raise HTTPException(status_code=401, detail='Invalide token')
+    except jwt.ExpiredSignatureError as e:
+        raise HTTPException(status_code=401, detail="Signature Error: {str(e)}")
+    except jwt.InvalidAlgorithmError as e:
+        raise HTTPException(status_code=401, detail=f"Not HS256: {str(e)}")
+    except jwt.InvalidTokenError as e:
+        raise HTTPException(status_code=401, detail=f"Invalide token: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=401, detail="Erreur inconnue")
+        raise HTTPException(status_code=401, detail=f"Erreur inconnue: {str(e)}")
 
     return payload

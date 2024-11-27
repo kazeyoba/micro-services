@@ -12,7 +12,7 @@ services:
     develop:
       watch:
         - action: sync+restart
-          path: ./api-server/app
+          path: ./api-bibliotheque/app
           target: /app
 
   front-bibliotheque:
@@ -26,7 +26,7 @@ services:
     develop:
       watch:
         - action: sync+restart
-          path: ./front-server/app
+          path: ./front-bibliotheque/app
           target: /app
 
   api-auth:

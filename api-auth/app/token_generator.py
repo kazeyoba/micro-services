@@ -20,9 +20,9 @@ def token_generator(user: m.Utilisateur, config_path: str = CONFIG_PATH) -> byte
     
     payload = {
         "iss": config['iss'],
-        "aud": config['aud'],
-        "iat": datetime.now(),
-        "exp": datetime.now() + timedelta(minutes=config['ACCESS_TOKEN_EXPIRE_MINUTES']),
+        "aud": "http://api-bibliotheque:5000",
+        "iat": datetime.now() - timedelta(hours=1),
+        "exp": datetime.now() + timedelta(minutes=config['ACCESS_TOKEN_EXPIRE_MINUTES']) - timedelta(hours=1),
         "sub": user.EmailUtilisateur,
         "nom": user.NomUtilisateur,
         "role": user.Statut
